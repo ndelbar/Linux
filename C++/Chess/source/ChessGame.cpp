@@ -1,5 +1,7 @@
 
 #include "ChessGame.h"
+#include <string>
+#include <iostream>
 #include "Board.h"
 
 using namespace std;
@@ -17,15 +19,22 @@ CChessGame::~CChessGame()
 void CChessGame::InitNewGame()
 {
   m_pBoard->InitializeGrid();
-  m_pBoard->DisplayCurrentBoardState();
+}
+
+void CChessGame::MovePiece()
+{
+  string strMessage;
+  cout << "Please enter piece position to position:\n";
+  cin >> strMessage;
 }
 
 void CChessGame::NewTurnPhase()
 {
   // Display Current Board State;
+  m_pBoard->DisplayCurrentBoardState();
 
   // Get Input for next players move.
-  // See if move is valid. (CPiece)
+  MovePiece();
 
   // Make sure player didn't put self in check.
 }

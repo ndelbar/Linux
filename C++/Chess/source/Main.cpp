@@ -8,7 +8,7 @@ int main()
 
   do
   {
-    // ChessGame.NextTurnPhase();
+    ChessGame.NewTurnPhase();
   }
   while(!ChessGame.IsCheckMate());
 

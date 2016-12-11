@@ -4,7 +4,7 @@ class CCell;
 class CPiece
 {
 public:
-        enum Faction
+        enum class Faction
         {
                 Player1 = 0,
                 Player2 = 1
@@ -50,7 +50,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'P';
     else
       return 'p';
@@ -71,7 +71,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'R';
     else
       return 'r';
@@ -92,7 +92,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'N';
     else
       return 'n';
@@ -113,7 +113,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'B';
     else
       return 'b';
@@ -134,7 +134,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'Q';
     else
       return 'q';
@@ -155,7 +155,7 @@ public:
 
   virtual char GetTypeVal()
   {
-    if (m_eFaction == Player1)
+    if (m_eFaction == Faction::Player1)
       return 'K';
     else
       return 'k';
