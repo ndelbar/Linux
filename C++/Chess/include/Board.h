@@ -13,6 +13,7 @@ public:
 
 	void InitializeGrid();
 	void DisplayCurrentBoardState();
+	void DisplayColumnValues();
 
 	static const int m_nRowCount;
 	static const int m_nColCount;

@@ -49,10 +49,27 @@ void CBoard::InitializeGrid()
   }
 }
 
+void CBoard::DisplayColumnValues()
+{
+  cout << endl;
+
+  cout << "  ";
+
+  for(char iCol = 0; iCol < m_nColCount; ++iCol)
+  {
+    cout << (char)('a' + iCol);
+  }
+
+  cout << endl << endl;
+}
+
 void CBoard::DisplayCurrentBoardState()
 {
+  DisplayColumnValues();
+
   for (int iRow = 0; iRow < m_nRowCount; ++iRow)
   {
+    cout << m_nRowCount - iRow << " ";
     for(int iCol = 0; iCol < m_nColCount; ++iCol)
     {
       CPiece* pPiece = m_pCells[iRow * m_nColCount + iCol].GetPiece();
@@ -62,7 +79,9 @@ void CBoard::DisplayCurrentBoardState()
       else
         cout << ".";
     }
-
+    cout << " " << m_nRowCount - iRow ;
     cout << endl;
   }
+
+  DisplayColumnValues();
 }
