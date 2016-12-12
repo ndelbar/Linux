@@ -6,8 +6,10 @@ using namespace std;
 int main()
 {
 	set<long long int> nPrimes;
+
+	nPrimes.insert(2);
 	
-	for (int i=2; i < 100000000; ++i)
+	for (int i = 3; i < 100000000; i += 2)
 	{
 		bool bDivisible = false;
 		
