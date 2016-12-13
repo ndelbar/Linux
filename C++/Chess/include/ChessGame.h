@@ -2,6 +2,8 @@
 #ifndef CHESSGAME_H
 #define CHESSGAME_H
 
+#include <string>
+
 class CBoard;
 
 class CChessGame
@@ -21,6 +23,9 @@ public:
   bool IsCheckMate();
   void DeclareWinner();
   void MovePiece();
+
+private:
+  bool ParseMoveMessage(const std::string& strMessage, int& nCol1, int& nRow1, int& nCol2, int& nRow2);
 
 private:
   CBoard* m_pBoard;

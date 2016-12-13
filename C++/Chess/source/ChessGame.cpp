@@ -1,6 +1,5 @@
 
 #include "ChessGame.h"
-#include <string>
 #include <iostream>
 #include "Board.h"
 
@@ -24,8 +23,14 @@ void CChessGame::InitNewGame()
 void CChessGame::MovePiece()
 {
   string strMessage;
-  cout << "Please enter piece position to position:\n";
-  cin >> strMessage;
+  int nCol1, nRow1, nCol2, nRow2;
+
+  do
+  {
+    cout << "Please enter piece position to position:\n";
+    cin >> strMessage;
+  }
+  while(!ParseMoveMessage(strMessage, nCol1, nRow1, nCol2, nRow2));
 }
 
 void CChessGame::NewTurnPhase()
@@ -52,4 +57,36 @@ bool CChessGame::IsCheckMate()
 void CChessGame::DeclareWinner()
 {
   // Display winning screen
+}
+
+bool CChessGame::ParseMoveMessage(const string& strMessage, int& nCol1, int& nRow1, int& nCol2, int& nRow2)
+{
+  bool bValidMove = false;
+
+  if (strMessage.length() == 4)
+  {
+    nCol1 = strMessage[0] - 'a';
+    nRow1 = 7 - (strMessage[1] - '1');
+    nCol2 = strMessage[2] - 'a';
+    nRow2 = 7 - (strMessage[3] - '1');
+
+    //cout << nCol1 << " " << nRow1 << " " << nCol2 << " "<< nRow2 << endl;
+
+    if (nCol1 < 0 || nCol1 >= 8)
+      cout << "First column not valid";
+    else if (nCol2 < 0 || nCol2 >= 8)
+      cout << "Second column not valid";
+    else if (nRow1 < 0 || nRow1 >= 8)
+      cout << "First row not valid";
+    else if (nRow2 < 0 || nRow2 >= 8)
+      cout << "Second row not valid";
+    else
+      bValidMove = true;
+  }
+  else
+  {
+    cout << "Format must be four characters no spaces" << endl;
+  }
+
+  return bValidMove;
 }
