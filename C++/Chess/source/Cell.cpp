@@ -62,5 +62,8 @@ void CCell::AddPiece(const char& cPiece)
 void CCell::RemovePiece()
 {
   if (m_pPiece)
+  {
     delete m_pPiece;
+    m_pPiece = NULL;
+  }
 }

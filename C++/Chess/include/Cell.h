@@ -13,7 +13,7 @@ public:
   CPiece* GetPiece();
 
 private:
-  CPiece* m_pPiece;
+  CPiece* m_pPiece = NULL;
   int m_nRow;
   int m_nCol;
 };

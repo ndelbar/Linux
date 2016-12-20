@@ -2,6 +2,8 @@
 #include "ChessGame.h"
 #include <iostream>
 #include "Board.h"
+#include "Cell.h"
+#include "Piece.h"
 
 using namespace std;
 
@@ -31,6 +33,15 @@ void CChessGame::MovePiece()
     cin >> strMessage;
   }
   while(!ParseMoveMessage(strMessage, nCol1, nRow1, nCol2, nRow2));
+
+  CCell* pCellOriginal = m_pBoard->GetCell(nCol1, nRow1);
+  CCell* pCellNew = m_pBoard->GetCell(nCol2, nRow2);
+
+  if (pCellNew && pCellOriginal && pCellOriginal->GetPiece())
+  {
+      pCellNew->AddPiece(pCellOriginal->GetPiece()->GetTypeVal());
+      pCellOriginal->RemovePiece();
+  }
 }
 
 void CChessGame::NewTurnPhase()
@@ -40,6 +51,8 @@ void CChessGame::NewTurnPhase()
 
   // Get Input for next players move.
   MovePiece();
+
+  m_pBoard->DisplayCurrentBoardState();
 
   // Make sure player didn't put self in check.
 }

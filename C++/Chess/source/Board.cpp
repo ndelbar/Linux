@@ -85,3 +85,8 @@ void CBoard::DisplayCurrentBoardState()
 
   DisplayColumnValues();
 }
+
+CCell* CBoard::GetCell(const int& nCol, const int& nRow)
+{
+  return &m_pCells[nRow * m_nColCount + nCol];
+}
