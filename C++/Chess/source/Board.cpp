@@ -38,14 +38,16 @@ void CBoard::InitializeGrid()
     {
       const char& cVal = g_cInitialSetupArray[iRow][iCol];
 
-      //cout << cVal;
+      CCell* pCurrentCell = &m_pCells[iRow * m_nColCount + iCol];
+
+      pCurrentCell->SetRow(iRow);
+      pCurrentCell->SetColumn(iCol);
 
       if (cVal != '.');
       {
-        m_pCells[iRow * m_nColCount + iCol].AddPiece(cVal);
+        pCurrentCell->AddPiece(cVal);
       }
     }
-    //cout << endl;
   }
 }
 

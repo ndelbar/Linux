@@ -26,7 +26,7 @@ public:
 
 private:
   bool ParseMoveMessage(const std::string& strMessage, int& nCol1, int& nRow1, int& nCol2, int& nRow2);
-  void EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const int& nCol2, const int& nRow2);
+  bool EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const int& nCol2, const int& nRow2);
 
 private:
   CBoard* m_pBoard;

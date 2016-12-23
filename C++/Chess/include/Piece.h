@@ -1,4 +1,3 @@
-
 class CCell;
 
 class CPiece
@@ -22,7 +21,7 @@ protected:
 public:
 
 	// Pure Virtual: IsValidMove() has to be defined in the derived class
-	virtual bool IsValidMove(const int& nRow, const int& nCol) = 0;
+	virtual bool IsValidMove(CCell* pNewCell) = 0;
 
   // Pure Virtual
   virtual char GetTypeVal() = 0;
@@ -43,7 +42,7 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
       // Return is valid move?
   }
@@ -64,9 +63,14 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+      if (m_pParentCell->GetRow() == pNewCell->GetRow())
+        return true;
+      else if (m_pParentCell->GetColumn() == pNewCell->GetColumn())
+        return true;
+
+      return false;
   }
 
   virtual char GetTypeVal()
@@ -85,7 +89,7 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
       // Return is valid move?
   }
@@ -106,7 +110,7 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
       // Return is valid move?
   }
@@ -127,7 +131,7 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
       // Return is valid move?
   }
@@ -148,7 +152,7 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  virtual bool IsValidMove(const int& nRow, const int& nCol)
+  virtual bool IsValidMove(CCell* pNewCell)
   {
       // Return is valid move?
   }

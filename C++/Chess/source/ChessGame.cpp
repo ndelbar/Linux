@@ -95,17 +95,26 @@ bool CChessGame::ParseMoveMessage(const string& strMessage, int& nCol1, int& nRo
   return bValidMove;
 }
 
-void CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const int& nCol2, const int& nRow2)
+bool CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const int& nCol2, const int& nRow2)
 {
   CCell* pCellOriginal = m_pBoard->GetCell(nCol1, nRow1);
   CCell* pCellNew = m_pBoard->GetCell(nCol2, nRow2);
 
   if (pCellNew && pCellOriginal && pCellOriginal->GetPiece())
   {
+    if (pCellOriginal->GetPiece()->IsValidMove(pCellNew))
+    {
       if (pCellNew->GetPiece())
         pCellNew->RemovePiece();
 
       pCellNew->AddPiece(pCellOriginal->GetPiece()->GetTypeVal());
       pCellOriginal->RemovePiece();
+    }
+    else
+    {
+      cout << "Invalid move" << endl;
+    }
   }
+
+  return true;
 }
