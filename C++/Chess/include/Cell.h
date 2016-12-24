@@ -1,3 +1,5 @@
+#ifndef CLASS_H
+#define CLASS_H
 
 class CPiece;
 
@@ -23,3 +25,5 @@ private:
   int m_nRow;
   int m_nCol;
 };
+
+#endif

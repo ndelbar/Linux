@@ -1,4 +1,9 @@
-class CCell;
+#ifndef PIECE_H
+#define PIECE_H
+
+#include <cmath>
+#include <iostream>
+#include "Cell.h"
 
 class CPiece
 {
@@ -19,6 +24,9 @@ protected:
 	m_eFaction(eFaction),
 	m_pParentCell(pCell)
 	{}
+
+  bool IsDiagonalMovement(CCell* pNewCell);
+  bool IsHorizontalOrVerticalMovement(CCell* pNewCell);
 
 public:
 
@@ -67,12 +75,7 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      if (m_pParentCell->GetRow() == pNewCell->GetRow())
-        return true;
-      else if (m_pParentCell->GetColumn() == pNewCell->GetColumn())
-        return true;
-
-      return false;
+    return CPiece::IsHorizontalOrVerticalMovement(pNewCell);
   }
 
   virtual char GetTypeVal()
@@ -114,7 +117,7 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+    return CPiece::IsDiagonalMovement(pNewCell);
   }
 
   virtual char GetTypeVal()
@@ -135,7 +138,7 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+    return IsDiagonalMovement(pNewCell) || IsHorizontalOrVerticalMovement(pNewCell);
   }
 
   virtual char GetTypeVal()
@@ -167,3 +170,5 @@ public:
       return 'k';
   }
 };
+
+#endif

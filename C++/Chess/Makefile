@@ -8,6 +8,7 @@ SOURCE := source/Main.cpp \
 					source/Board.cpp \
 					source/Cell.cpp \
 					source/ChessGame.cpp \
+					source/Piece.cpp
 
 all: ./release
 	$(CC) $(CFLAGS) $(INCLUDE) $(SOURCE) -o ./release/myApp
