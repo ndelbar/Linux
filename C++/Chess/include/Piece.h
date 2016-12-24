@@ -96,7 +96,8 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+      return (std::abs(pNewCell->GetRow() - m_pParentCell->GetRow()) == 2 && std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn()) == 1) ||
+             (std::abs(pNewCell->GetRow() - m_pParentCell->GetRow()) == 1 && std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn()) == 2);
   }
 
   virtual char GetTypeVal()
@@ -159,7 +160,7 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+      return std::abs(pNewCell->GetRow() - m_pParentCell->GetRow()) + std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn()) == 1;
   }
 
   virtual char GetTypeVal()
