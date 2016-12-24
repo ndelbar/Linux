@@ -10,6 +10,8 @@ public:
         };
 
 
+  Faction GetFaction() { return m_eFaction; }
+
 	// creating a protected constructor so this base class cannot be declared independently of derived class.
 protected:
 

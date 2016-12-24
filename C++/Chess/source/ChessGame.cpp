@@ -105,7 +105,15 @@ bool CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const 
     if (pCellOriginal->GetPiece()->IsValidMove(pCellNew))
     {
       if (pCellNew->GetPiece())
+      {
+        if (pCellNew->GetPiece()->GetFaction() == pCellOriginal->GetPiece()->GetFaction())
+        {
+          cout << "Invalid Move" << endl;
+          return false;
+        }
+
         pCellNew->RemovePiece();
+      }
 
       pCellNew->AddPiece(pCellOriginal->GetPiece()->GetTypeVal());
       pCellOriginal->RemovePiece();
@@ -113,6 +121,7 @@ bool CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const 
     else
     {
       cout << "Invalid move" << endl;
+      return false;
     }
   }
 
