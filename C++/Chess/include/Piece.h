@@ -38,6 +38,8 @@ public:
 
 	Faction GetFaction() const { return m_eFaction; }
 
+  void SetParentCell(CCell* pCell);
+
 protected:
 
 	Faction m_eFaction;
@@ -52,9 +54,46 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
+  bool m_bFirstMove = true;
+
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      // Return is valid move?
+    bool bMoveDown = m_eFaction == Faction::Player1;
+    bool bFirstMove = m_bFirstMove;
+    int nDiffValueExpected = 1;
+
+    m_bFirstMove = false;
+
+    if (m_eFaction == Faction::Player2)
+    {
+      nDiffValueExpected = -1;
+    }
+
+    if (pNewCell->GetPiece())
+    {
+      if ((pNewCell->GetRow() - m_pParentCell->GetRow()) == nDiffValueExpected)
+      {
+        if (std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn() == 1))
+        {
+          return true;
+        }
+      }
+    }
+    else
+    {
+      if (pNewCell->GetRow() - m_pParentCell->GetRow() == nDiffValueExpected)
+      {
+        return true;
+      }
+
+      if (bFirstMove && (pNewCell->GetRow() - m_pParentCell->GetRow()) == (nDiffValueExpected * 2))
+      {
+        return true;
+      }
+    }
+
+    m_bFirstMove = bFirstMove;
+    return false;
   }
 
   virtual char GetTypeVal()

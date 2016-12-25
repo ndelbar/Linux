@@ -12,6 +12,8 @@ public:
   void SetPosition(const int& nRow, const int& nCol);
   void AddPiece(const char& cPiece);
   void RemovePiece();
+  void TransferPiece(CCell* pNewCell);
+  void SetPiece(CPiece* pPiece);
   CPiece* GetPiece();
 
   const int GetRow() { return m_nRow; }

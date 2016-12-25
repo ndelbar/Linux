@@ -17,3 +17,8 @@ bool CPiece::IsHorizontalOrVerticalMovement(CCell* pNewCell)
 
   return false;
 }
+
+void CPiece::SetParentCell(CCell* pCell)
+{
+  m_pParentCell = pCell;
+}

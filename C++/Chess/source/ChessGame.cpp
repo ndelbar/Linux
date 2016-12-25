@@ -115,7 +115,7 @@ bool CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const 
         pCellNew->RemovePiece();
       }
 
-      pCellNew->AddPiece(pCellOriginal->GetPiece()->GetTypeVal());
+      pCellOriginal->TransferPiece(pCellNew);
       pCellOriginal->RemovePiece();
     }
     else

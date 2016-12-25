@@ -67,3 +67,15 @@ void CCell::RemovePiece()
     m_pPiece = NULL;
   }
 }
+
+void CCell::SetPiece(CPiece* pPiece)
+{
+  m_pPiece = pPiece;
+  m_pPiece->SetParentCell(this);
+}
+
+void CCell::TransferPiece(CCell* pNewCell)
+{
+  pNewCell->SetPiece(m_pPiece);
+  m_pPiece = NULL;
+}
