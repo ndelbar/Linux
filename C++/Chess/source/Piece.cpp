@@ -1,4 +1,7 @@
 #include "Piece.h"
+#include <iostream>
+
+using namespace std;
 
 bool CPiece::IsDiagonalMovement(CCell* pNewCell)
 {

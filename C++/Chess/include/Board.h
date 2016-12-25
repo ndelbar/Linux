@@ -15,6 +15,7 @@ public:
 	void DisplayCurrentBoardState();
 	void DisplayColumnValues();
 	CCell* GetCell(const int& nCol, const int& nRow);
+  void DisplayGraphic(const char cVal, const int& nRow);
 
 	static const int m_nRowCount;
 	static const int m_nColCount;

@@ -4,16 +4,20 @@
 #include <cmath>
 #include <iostream>
 #include "Cell.h"
+#include <string>
+
+using namespace std;
 
 class CPiece
 {
 public:
-        enum class Faction
-        {
-                Player1 = 0,
-                Player2 = 1
-        };
+  enum class Faction
+  {
+    Player1 = 0,
+    Player2 = 1
+  };
 
+  virtual void DisplayGraphic(const int& nRow) = 0;
 
   Faction GetFaction() { return m_eFaction; }
 
@@ -53,6 +57,15 @@ public:
   CPawn(Faction eFaction, CCell* pCell)
   : CPiece(eFaction, pCell)
   {}
+
+  const string m_strUI[3] = {" ( ) ",
+                             " | | ",
+                             "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
 
   bool m_bFirstMove = true;
 
@@ -112,6 +125,15 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
+    const string m_strUI[3] = {"[---]",
+                               " | | ",
+                               "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
+
   virtual bool IsValidMove(CCell* pNewCell)
   {
     return CPiece::IsHorizontalOrVerticalMovement(pNewCell);
@@ -132,6 +154,15 @@ public:
   CKnight(Faction eFaction, CCell* pCell)
   : CPiece(eFaction, pCell)
   {}
+
+  const string m_strUI[3] = {" /-\\=",
+                             " | | ",
+                             "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
@@ -155,6 +186,15 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
+  const string m_strUI[3] = {" (/) ",
+                             " | | ",
+                             "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
+
   virtual bool IsValidMove(CCell* pNewCell)
   {
     return CPiece::IsDiagonalMovement(pNewCell);
@@ -176,6 +216,15 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
+  const string m_strUI[3] = {"(^^^)",
+                             " | | ",
+                             "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
+
   virtual bool IsValidMove(CCell* pNewCell)
   {
     return IsDiagonalMovement(pNewCell) || IsHorizontalOrVerticalMovement(pNewCell);
@@ -196,6 +245,15 @@ public:
   CKing(Faction eFaction, CCell* pCell)
   : CPiece(eFaction, pCell)
   {}
+
+  const string m_strUI[3] = {"[[ ]]",
+                             " | | ",
+                             "[___]"};
+
+  void DisplayGraphic(const int& nRow)
+  {
+    cout << m_strUI[nRow];
+  }
 
   virtual bool IsValidMove(CCell* pNewCell)
   {

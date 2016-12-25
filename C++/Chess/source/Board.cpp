@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Cell.h"
 #include "Piece.h"
+#include <string>
 
 using namespace std;
 
@@ -19,6 +20,11 @@ const char g_cInitialSetupArray[CBoard::m_nRowCount][CBoard::m_nColCount] =
 {'p','p','p','p','p','p','p','p'},
 {'r','n','b','q','k','b','n','r'}
 };
+
+const string g_strBlank[3] =
+{"     ",
+ "     ",
+ ".___."};
 
 CBoard::CBoard()
 {
@@ -59,7 +65,10 @@ void CBoard::DisplayColumnValues()
 
   for(char iCol = 0; iCol < m_nColCount; ++iCol)
   {
-    cout << (char)('a' + iCol);
+    for (int iRepeat = 0; iRepeat < g_strBlank[0].length(); ++iRepeat)
+    {
+      cout << (char)('a' + iCol);
+    }
   }
 
   cout << endl << endl;
@@ -71,18 +80,23 @@ void CBoard::DisplayCurrentBoardState()
 
   for (int iRow = 0; iRow < m_nRowCount; ++iRow)
   {
-    cout << m_nRowCount - iRow << " ";
-    for(int iCol = 0; iCol < m_nColCount; ++iCol)
+    for (int iDisplayRow = 0; iDisplayRow < 3; iDisplayRow++)
     {
-      CPiece* pPiece = m_pCells[iRow * m_nColCount + iCol].GetPiece();
+      cout << m_nRowCount - iRow << " ";
 
-      if (pPiece)
-        cout << pPiece->GetTypeVal();
-      else
-        cout << ".";
+      for(int iCol = 0; iCol < m_nColCount; ++iCol)
+      {
+        CPiece* pPiece = m_pCells[iRow * m_nColCount + iCol].GetPiece();
+
+        if (pPiece)
+          pPiece->DisplayGraphic(iDisplayRow);
+        else
+          cout << g_strBlank[iDisplayRow];
+      }
+
+      cout << " " << m_nRowCount - iRow ;
+      cout << endl;
     }
-    cout << " " << m_nRowCount - iRow ;
-    cout << endl;
   }
 
   DisplayColumnValues();
