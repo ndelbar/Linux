@@ -18,7 +18,7 @@ public:
   };
 
   virtual void DisplayGraphic(const int& nRow) = 0;
-
+  void ReplaceWildCardWithFaction(const string& strMessage);
   Faction GetFaction() { return m_eFaction; }
 
 	// creating a protected constructor so this base class cannot be declared independently of derived class.
@@ -59,12 +59,12 @@ public:
   {}
 
   const string m_strUI[3] = {" ( ) ",
-                             " | | ",
+                             " |*| ",
                              "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   bool m_bFirstMove = true;
@@ -126,12 +126,12 @@ public:
   {}
 
     const string m_strUI[3] = {"[---]",
-                               " | | ",
+                               " |*| ",
                                "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   virtual bool IsValidMove(CCell* pNewCell)
@@ -155,13 +155,13 @@ public:
   : CPiece(eFaction, pCell)
   {}
 
-  const string m_strUI[3] = {" /-\\=",
-                             " | | ",
+  const string m_strUI[3] = {"Co^\\ ",
+                             " |*| ",
                              "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   virtual bool IsValidMove(CCell* pNewCell)
@@ -187,12 +187,12 @@ public:
   {}
 
   const string m_strUI[3] = {" (/) ",
-                             " | | ",
+                             " |*| ",
                              "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   virtual bool IsValidMove(CCell* pNewCell)
@@ -217,12 +217,12 @@ public:
   {}
 
   const string m_strUI[3] = {"(^^^)",
-                             " | | ",
+                             " |*| ",
                              "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   virtual bool IsValidMove(CCell* pNewCell)
@@ -247,12 +247,12 @@ public:
   {}
 
   const string m_strUI[3] = {"[[ ]]",
-                             " | | ",
+                             " |*| ",
                              "[___]"};
 
   void DisplayGraphic(const int& nRow)
   {
-    cout << m_strUI[nRow];
+    ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
 
   virtual bool IsValidMove(CCell* pNewCell)

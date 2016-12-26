@@ -25,3 +25,19 @@ void CPiece::SetParentCell(CCell* pCell)
 {
   m_pParentCell = pCell;
 }
+
+void CPiece::ReplaceWildCardWithFaction(const string& strMessage)
+{
+  for (int iLetter = 0; iLetter < strMessage.length(); ++iLetter)
+  {
+    if (strMessage[iLetter] != '*')
+      cout << strMessage[iLetter];
+    else
+    {
+      if (m_eFaction == Faction::Player1)
+        cout << ' ';
+      else
+        cout << '*';
+    }
+  }
+}
