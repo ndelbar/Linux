@@ -8,6 +8,7 @@ using namespace std;
 
 const int CBoard::m_nColCount = 8;
 const int CBoard::m_nRowCount = 8;
+const int nFancyGraphicHeight = 3;
 
 const char g_cInitialSetupArray[CBoard::m_nRowCount][CBoard::m_nColCount] =
 {
@@ -63,9 +64,14 @@ void CBoard::DisplayColumnValues()
 
   cout << "  ";
 
+  int nColWidth = 1;
+
+  if (m_bGoodGraphics)
+    nColWidth = g_strBlank[0].length();
+
   for(char iCol = 0; iCol < m_nColCount; ++iCol)
   {
-    for (int iRepeat = 0; iRepeat < g_strBlank[0].length(); ++iRepeat)
+    for (int iRepeat = 0; iRepeat < nColWidth; ++iRepeat)
     {
       cout << (char)('a' + iCol);
     }
@@ -78,9 +84,14 @@ void CBoard::DisplayCurrentBoardState()
 {
   DisplayColumnValues();
 
+  int nRowHeight = 1;
+
+  if (m_bGoodGraphics)
+    nRowHeight = nFancyGraphicHeight;
+
   for (int iRow = 0; iRow < m_nRowCount; ++iRow)
   {
-    for (int iDisplayRow = 0; iDisplayRow < 3; iDisplayRow++)
+    for (int iDisplayRow = 0; iDisplayRow < nRowHeight; iDisplayRow++)
     {
       cout << m_nRowCount - iRow << " ";
 
@@ -88,10 +99,20 @@ void CBoard::DisplayCurrentBoardState()
       {
         CPiece* pPiece = m_pCells[iRow * m_nColCount + iCol].GetPiece();
 
-        if (pPiece)
-          pPiece->DisplayGraphic(iDisplayRow);
+        if (m_bGoodGraphics)
+        {
+          if (pPiece)
+            pPiece->DisplayGraphic(iDisplayRow);
+          else
+            cout << g_strBlank[iDisplayRow];
+        }
         else
-          cout << g_strBlank[iDisplayRow];
+        {
+          if (pPiece)
+            cout << pPiece->GetTypeVal();
+          else
+            cout << ".";
+        }
       }
 
       cout << " " << m_nRowCount - iRow ;

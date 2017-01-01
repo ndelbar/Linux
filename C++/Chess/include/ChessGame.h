@@ -23,6 +23,8 @@ public:
   bool IsCheckMate();
   void DeclareWinner();
   void MovePiece();
+  void DisplayTitle();
+  void DisplayOptions();
 
 private:
   bool ParseMoveMessage(const std::string& strMessage, int& nCol1, int& nRow1, int& nCol2, int& nRow2);

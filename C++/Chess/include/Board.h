@@ -21,6 +21,11 @@ public:
 	static const int m_nColCount;
 
 	CCell* m_pCells;
+
+	void SetGoodGraphics(bool bGood) { m_bGoodGraphics = bGood;}
+
+private:
+	bool m_bGoodGraphics = true;
 };
 
 #endif

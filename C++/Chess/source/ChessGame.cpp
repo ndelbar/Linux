@@ -1,4 +1,4 @@
-
+#include "Resource.h"
 #include "ChessGame.h"
 #include <iostream>
 #include "Board.h"
@@ -10,6 +10,8 @@ using namespace std;
 CChessGame::CChessGame()
 {
   m_pBoard = new CBoard;
+
+  DisplayTitle();
 }
 
 CChessGame::~CChessGame()
@@ -19,6 +21,8 @@ CChessGame::~CChessGame()
 
 void CChessGame::InitNewGame()
 {
+  DisplayOptions();
+
   m_pBoard->InitializeGrid();
 }
 
@@ -100,30 +104,56 @@ bool CChessGame::EvaluateAndMovePiece(const int& nCol1, const int& nRow1, const 
   CCell* pCellOriginal = m_pBoard->GetCell(nCol1, nRow1);
   CCell* pCellNew = m_pBoard->GetCell(nCol2, nRow2);
 
-  if (pCellNew && pCellOriginal && pCellOriginal->GetPiece())
+  if (pCellNew && pCellOriginal && pCellOriginal->GetPiece() &&
+      pCellOriginal->GetPiece()->IsValidMove(pCellNew) &&
+     (int)pCellOriginal->GetPiece()->GetFaction() != (int)m_eCurrentPlayer)
   {
-    if (pCellOriginal->GetPiece()->IsValidMove(pCellNew))
+    if (pCellNew->GetPiece())
     {
-      if (pCellNew->GetPiece())
+      if (pCellNew->GetPiece()->GetFaction() == pCellOriginal->GetPiece()->GetFaction())
       {
-        if (pCellNew->GetPiece()->GetFaction() == pCellOriginal->GetPiece()->GetFaction())
-        {
-          cout << "Invalid Move" << endl;
-          return false;
-        }
-
-        pCellNew->RemovePiece();
+        cout << "Invalid Move" << endl;
+        return false;
       }
 
-      pCellOriginal->TransferPiece(pCellNew);
-      pCellOriginal->RemovePiece();
+      pCellNew->RemovePiece();
     }
-    else
-    {
-      cout << "Invalid move" << endl;
-      return false;
-    }
+
+    pCellOriginal->TransferPiece(pCellNew);
+  }
+  else
+  {
+    cout << "Invalid move" << endl;
+    return false;
   }
 
+  if (m_eCurrentPlayer == Faction::Player1)
+    m_eCurrentPlayer = Faction::Player2;
+  else
+    m_eCurrentPlayer = Faction::Player1;
+
   return true;
+}
+
+void CChessGame::DisplayTitle()
+{
+  cout << IDS_INTRO;
+}
+
+void CChessGame::DisplayOptions()
+{
+  cout << IDS_OPTIONS;
+
+  char cOptions[256];
+
+  cin.getline(cOptions, 256);
+
+  string strOptions(cOptions);
+
+  if (strOptions.find("t") != -1 || strOptions.find("T") != -1)
+    m_eCurrentPlayer = Faction::Player2;
+  else
+    m_eCurrentPlayer = Faction::Player1;
+
+  m_pBoard->SetGoodGraphics(strOptions.find("M") == -1 && strOptions.find("m") == -1);
 }
