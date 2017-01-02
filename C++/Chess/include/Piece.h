@@ -43,11 +43,12 @@ public:
 	Faction GetFaction() const { return m_eFaction; }
 
   void SetParentCell(CCell* pCell);
+  bool IsFirstMove() { return m_bFirstMove; }
 
 protected:
 
 	Faction m_eFaction;
-
+  bool m_bFirstMove = true;
 	CCell* m_pParentCell;
 };
 
@@ -66,8 +67,6 @@ public:
   {
     ReplaceWildCardWithFaction(m_strUI[nRow]);
   }
-
-  bool m_bFirstMove = true;
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
@@ -257,7 +256,44 @@ public:
 
   virtual bool IsValidMove(CCell* pNewCell)
   {
-      return std::abs(pNewCell->GetRow() - m_pParentCell->GetRow()) + std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn()) == 1;
+    bool bValid = false;
+
+    bValid = std::abs(pNewCell->GetRow() - m_pParentCell->GetRow()) + std::abs(pNewCell->GetColumn() - m_pParentCell->GetColumn()) == 1;
+
+    // Determine if Castle Move is valid, and performs the transfer of the rook if it is
+    if (!bValid && m_bFirstMove && (pNewCell->GetRow() - m_pParentCell->GetRow()) == 0)
+    {
+      if (pNewCell->GetColumn() - m_pParentCell->GetColumn() == 2)
+      {
+        if (pNewCell->GetPiece() == NULL)
+        {
+          CCell* pLeftCell = pNewCell - 1;
+          CCell* pRookCell = pNewCell + 1;
+
+          if (pRookCell->GetPiece() && pRookCell->GetPiece()->IsFirstMove() && pLeftCell->GetPiece() == NULL)
+          {
+            pRookCell->TransferPiece(pLeftCell);
+            bValid = true;
+          }
+        }
+      }
+      else if (pNewCell->GetColumn() - m_pParentCell->GetColumn() == -2)
+      {
+        CCell* pRightCell = pNewCell + 1;
+        CCell* pRookCell = pNewCell - 2;
+
+        if (pRookCell->GetPiece() && pRookCell->GetPiece()->IsFirstMove() && pRightCell->GetPiece() == NULL)
+        {
+          pRookCell->TransferPiece(pRightCell);
+          bValid = true;
+        }
+      }
+    }
+
+    if (bValid && m_bFirstMove)
+      m_bFirstMove = false;
+
+    return bValid;
   }
 
   virtual char GetTypeVal()
