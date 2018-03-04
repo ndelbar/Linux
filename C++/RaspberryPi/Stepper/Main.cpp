@@ -41,6 +41,19 @@ void RunAlarm()
 	delay(1000);
 }
 
+void StopSound()
+{
+	int nDelay = 20;
+	
+	for (int i = 0; i < 10; i++)
+	{
+		digitalWrite(OUT5, LOW);  //beep on
+		delay(nDelay);            //delay
+		digitalWrite(OUT5, HIGH); //beep off
+		delay(nDelay);            //delay
+	}
+}
+
 bool setStep(int a, int b, int c, int d)  
 {  
 	digitalWrite(OUT1, a);     
@@ -199,6 +212,8 @@ int main(void)
 	
 	//tl1.join();
 	//tl2.join();
+	
+	StopSound();
 
 	return 0;  
 }  
