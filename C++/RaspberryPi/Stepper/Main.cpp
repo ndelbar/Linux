@@ -80,21 +80,10 @@ bool backward(int t, int steps)
 	return bStatus;  
 }  
 
-int main(void) 
-{  
-	if (wiringPiSetup() < 0) {  
-		printf("Setup wiringPi failed!\n");  
-		return -1;  
-	}  
-
-	/* set pins mode as output */  
-	pinMode(OUT1, OUTPUT);  
-	pinMode(OUT2, OUTPUT);  
-	pinMode(OUT3, OUTPUT);  
-	pinMode(OUT4, OUTPUT);  
-	pinMode(IN1, INPUT);
-
-	while (1){  
+void RunStepperMotorLoop()
+{
+	while (1)
+	{  
 		printf("forward...\n");  
 		
 		if (!forward(2, 512))
@@ -113,6 +102,64 @@ int main(void)
 		stop();  
 		delay(2000);       // 2s
 	}  
+}
+
+void RunMotionDetectionLoop()
+{
+	printf("Running Motion Detection\n");
+	
+	unsigned char nMotionValue = 0;
+	unsigned char nPreviousValue = 0;
+	unsigned char nStopValue = 0;
+	int nInstance = 0;
+		
+	while (1)
+	{
+		delay(100);
+		
+		nMotionValue = digitalRead(IN2);
+		nStopValue   = digitalRead(IN1);
+		
+		if (nStopValue)
+			break;
+		
+		if (nMotionValue != nPreviousValue)
+		{
+			if (nMotionValue)
+			{
+				printf("Motion Detected: %d\n" , nInstance);
+				nInstance++;
+				nPreviousValue = nMotionValue;
+			}
+			else
+			{
+				printf("Resume Monitoring\n");
+				nPreviousValue = nMotionValue;
+			}
+		}
+	}
+	
+	printf("Finished Motion Detection\n");
+}
+
+int main(void) 
+{  
+	if (wiringPiSetup() < 0) {  
+		printf("Setup wiringPi failed!\n");  
+		return -1;  
+	}  
+
+	/* set pins mode as output */  
+	pinMode(OUT1, OUTPUT);  
+	pinMode(OUT2, OUTPUT);  
+	pinMode(OUT3, OUTPUT);  
+	pinMode(OUT4, OUTPUT);  
+	pinMode(IN1, INPUT);
+	pinMode(IN2, INPUT);
+
+	//RunStepperMotorLoop();
+	
+	RunMotionDetectionLoop();
 
 	return 0;  
 }  
