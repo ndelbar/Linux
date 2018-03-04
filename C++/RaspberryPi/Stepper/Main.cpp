@@ -13,9 +13,30 @@
 #define OUT2 1    // pin12 
 #define OUT3 2    // pin13
 #define OUT4 3    // pin15
+#define OUT5 6 	  // pin22
 
 #define IN1 4 //pin16
 #define IN2 5 //pin18
+
+void RunAlarm()
+{
+	unsigned char nStopValue = 0;
+	
+	while(1)
+	{
+		digitalWrite(OUT5, LOW);  //beep on
+		delay(100);                  //delay
+		digitalWrite(OUT5, HIGH); //beep off
+		delay(100);                  //delay
+		
+		nStopValue   = digitalRead(IN1);
+		
+		if (nStopValue)
+			break;
+	}
+	
+	delay(1000);
+}
 
 bool setStep(int a, int b, int c, int d)  
 {  
@@ -130,6 +151,8 @@ void RunMotionDetectionLoop()
 				printf("Motion Detected: %d\n" , nInstance);
 				nInstance++;
 				nPreviousValue = nMotionValue;
+				
+				RunAlarm();
 			}
 			else
 			{
@@ -154,12 +177,15 @@ int main(void)
 	pinMode(OUT2, OUTPUT);  
 	pinMode(OUT3, OUTPUT);  
 	pinMode(OUT4, OUTPUT);  
+	pinMode(OUT5, OUTPUT);
 	pinMode(IN1, INPUT);
 	pinMode(IN2, INPUT);
 
 	//RunStepperMotorLoop();
 	
 	RunMotionDetectionLoop();
+	
+	//RunAlarm();
 
 	return 0;  
 }  
