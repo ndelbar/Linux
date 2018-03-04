@@ -4,7 +4,7 @@ SOURCE := Main.cpp
 
 
 all:
-	$(CC) -o myApp -lwiringPi -lwiringPiDev
+	$(CC) -o myApp -lwiringPi -lwiringPiDev -pthread
 
 debug:
 	$(DCC) -o myAppD

@@ -8,6 +8,9 @@
  */
 #include <wiringPi.h>  
 #include <stdio.h>  
+#include <thread>
+
+using namespace std;
 
 #define OUT1 0    // wiringPi GPIO0(pin11)  
 #define OUT2 1    // pin12 
@@ -152,7 +155,11 @@ void RunMotionDetectionLoop()
 				nInstance++;
 				nPreviousValue = nMotionValue;
 				
-				RunAlarm();
+				thread tl1(RunStepperMotorLoop);
+				thread tl2(RunAlarm);
+	
+				tl1.join();
+				tl2.join();
 			}
 			else
 			{
@@ -186,6 +193,12 @@ int main(void)
 	RunMotionDetectionLoop();
 	
 	//RunAlarm();
+	
+	//thread tl1(RunStepperMotorLoop);
+	//thread tl2(RunAlarm);
+	
+	//tl1.join();
+	//tl2.join();
 
 	return 0;  
 }  
