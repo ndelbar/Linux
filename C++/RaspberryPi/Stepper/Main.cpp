@@ -9,6 +9,7 @@
 #include <wiringPi.h>  
 #include <stdio.h>  
 #include <thread>
+#include "DHT.h"
 
 using namespace std;
 
@@ -203,15 +204,16 @@ int main(void)
 
 	//RunStepperMotorLoop();
 	
-	RunMotionDetectionLoop();
+	//RunMotionDetectionLoop();
 	
 	//RunAlarm();
 	
-	//thread tl1(RunStepperMotorLoop);
-	//thread tl2(RunAlarm);
-	
-	//tl1.join();
-	//tl2.join();
+	while (1) 
+	{
+		read_dht11_dat();
+		delay(1000); // wait 1sec to refresh
+	}
+
 	
 	StopSound();
 
